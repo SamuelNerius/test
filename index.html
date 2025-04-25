@@ -97,40 +97,330 @@
     </style>
 </head>
 <body>
+    <div class="survey-container">
+        <div class="survey-page active" id="page-1">
+            <!-- Page 1 content here -->
+            <h2>Welcome!</h2>
+            <p>We're currently working on improving the design of a new research survey. In this version, we're testing
+                how different survey formats influence user experience and data quality.</p>
+            <p>Your participation is anonymous, and none of your personal information will be collected. However, to
+                better understand how users interact with surveys, we will collect non-identifiable behavioral data,
+                such as:
+            <ul>
+                <li>Time spent on each question</li>
+                <li>Overall completion time</li>
+                <li>Whether or not you complete the survey</li>
+            </ul>
+            </p>
+            <p><strong>By continuing, you consent to participate in this study.</strong></p>
 
-<div class="survey-page active">
-  <h2>Page 1: Age & Gender</h2>
-  <label><input type="radio" name="age" value="20 - 29" required> 20 - 29</label><br>
-  <label><input type="radio" name="age" value="30 - 39"> 30 - 39</label><br>
-  <label><input type="radio" name="gender" value="Male" required> Male</label><br>
-  <label><input type="radio" name="gender" value="Female"> Female</label><br>
-</div>
+            <div class="question">
+                <label>Age:</label>
+                <input type="radio" name="age" value="<20" required>
+                < 20<br>
+                    <input type="radio" name="age" value="20 - 29"> 20 - 29<br>
+                    <input type="radio" name="age" value="30 - 39"> 30 - 39<br>
+                    <input type="radio" name="age" value="40 - 49"> 40 - 49<br>
+                    <input type="radio" name="age" value="50 - 59"> 50 - 59<br>
+                    <input type="radio" name="age" value="60 ≤"> 60 ≤<br>
+            </div>
 
-<div class="survey-page">
-  <h2>Page 2</h2>
-  <textarea name="example" placeholder="Write something..."></textarea>
-</div>
+            <div class="question">
+                <label>Gender:</label>
+                <input type="radio" name="gender" value="Male" required> Male<br>
+                <input type="radio" name="gender" value="Female"> Female<br>
+                <input type="radio" name="gender" value="Other"> Other<br>
+                <input type="radio" name="gender" value="Do not want to specify"> Do not want to specify<br>
+            </div>
 
-<div class="survey-page">
-  <h2>Page 3</h2>
-  <input id="survey_engagement_input" value="7">
-  <input type="radio" name="survey_clarity" value="Yes" checked>
-  <input id="survey_clarity_feedback" value="It's fine.">
-  <input type="radio" name="question_difficulty" value="No" checked>
-  <textarea id="difficult_questions"></textarea>
-  <input id="survey_fun_input" value="8">
-  <input type="radio" name="response_accuracy" value="Good" checked>
-  <input type="radio" name="survey_navigation" value="Easy" checked>
-  <input type="radio" name="survey_hesitation" value="No" checked>
-  <textarea id="survey_hesitation_reason"></textarea>
-  <textarea id="survey_improvements"></textarea>
-</div>
+        </div>
 
-<div class="navigation">
-  <button id="prevBtn" onclick="prevPage()">Previous</button>
-  <button id="nextBtn" onclick="nextPage()">Next</button>
-</div>
+        <div class="survey-page" id="page-2">
+            <h2>Section 2: Phone Use</h2>
 
+            <div class="question">
+                <label>On a typical weekday, how many hours do you actively use your phone?</label>
+                <div class="number-board" id="weekday-phone-hours"></div>
+                <input type="hidden" name="weekday_phone_hours" id="weekday_phone_input">
+            </div>
+
+            <div class="question">
+                <label>On a typical weekend day, how many hours do you actively use your phone?</label>
+                <div class="number-board" id="weekend-phone-hours"></div>
+                <input type="hidden" name="weekend_phone_hours" id="weekend_phone_input">
+            </div>
+
+            <div class="question">
+                <label>Which of the following do you use your phone for daily?</label>
+                <input type="checkbox" name="phone_activities" value="Messaging / calls"> Messaging / calls<br>
+                <input type="checkbox" name="phone_activities" value="Social media"> Social media<br>
+                <input type="checkbox" name="phone_activities" value="Work or school"> Work or school<br>
+                <input type="checkbox" name="phone_activities" value="Streaming or games"> Streaming or games<br>
+                <input type="checkbox" name="phone_activities" value="Online shopping"> Online shopping<br>
+                <input type="checkbox" name="phone_activities" value="Reading news or articles"> Reading news or
+                articles<br>
+                <input type="text" name="phone_activities_other" placeholder="Other (please specify)">
+            </div>
+
+            <div class="question">
+                <label>At what times do you usually use your phone the most? (Select up to two)</label>
+                <input type="checkbox" name="phone_time" value="Morning (06–10)"> Morning (06–10)<br>
+                <input type="checkbox" name="phone_time" value="Midday (10–14)"> Midday (10–14)<br>
+                <input type="checkbox" name="phone_time" value="Afternoon (14–18)"> Afternoon (14–18)<br>
+                <input type="checkbox" name="phone_time" value="Evening (18–22)"> Evening (18–22)<br>
+                <input type="checkbox" name="phone_time" value="Late night (22–02)"> Late night (22–02)<br>
+            </div>
+
+            <div class="question">
+                <label>How does phone use affect your productivity during a typical weekday?</label>
+                <input type="radio" name="phone_productivity_effect" value="Very negatively"> Very negatively<br>
+                <input type="radio" name="phone_productivity_effect" value="Somewhat negatively"> Somewhat
+                negatively<br>
+                <input type="radio" name="phone_productivity_effect" value="No effect"> No effect<br>
+                <input type="radio" name="phone_productivity_effect" value="Somewhat positively"> Somewhat
+                positively<br>
+                <input type="radio" name="phone_productivity_effect" value="Very positively"> Very positively<br>
+            </div>
+
+            <div class="question">
+                <label>In what way does your phone use affect your productivity?</label>
+                <textarea name="phone_productivity_reason"></textarea>
+            </div>
+
+        </div>
+
+        <div class="survey-page" id="page-3">
+
+            <h2>Section 3: TV Use</h2>
+            <div class="question">
+                <label>How many hours of TV do you watch on a typical weekday?</label>
+                <input type="hidden" id="tv_weekday_input" name="weekday_tv_hours">
+                <div id="tv-weekday-board" class="number-board"></div>
+            </div>
+
+            <div class="question">
+                <label>How many hours of TV do you watch on a typical weekend day?</label>
+                <input type="hidden" id="tv_weekend_input" name="weekend_tv_hours">
+                <div id="tv-weekend-board" class="number-board"></div>
+            </div>
+
+
+            <fieldset>
+                <legend>What types of TV content do you usually watch?</legend>
+                <label><input type="checkbox" name="tv_content" value="News"> News</label>
+                <label><input type="checkbox" name="tv_content" value="Sports"> Sports</label>
+                <label><input type="checkbox" name="tv_content" value="Series"> Series</label>
+                <label><input type="checkbox" name="tv_content" value="Movies"> Movies</label>
+                <label><input type="checkbox" name="tv_content" value="Documentaries"> Documentaries</label>
+                <label><input type="checkbox" name="tv_content" value="Reality TV"> Reality TV</label>
+                <label>Other (please specify): <input type="text" name="tv_content_other"></label>
+            </fieldset>
+
+            <fieldset>
+                <legend>How does watching TV affect your sleep patterns?</legend>
+                <label><input type="radio" name="tv_sleep_effect" value="Very negatively"> Very negatively</label>
+                <label><input type="radio" name="tv_sleep_effect" value="Somewhat negatively"> Somewhat
+                    negatively</label>
+                <label><input type="radio" name="tv_sleep_effect" value="No effect"> No effect</label>
+                <label><input type="radio" name="tv_sleep_effect" value="Somewhat positively"> Somewhat
+                    positively</label>
+                <label><input type="radio" name="tv_sleep_effect" value="Very positively"> Very positively</label>
+            </fieldset>
+
+            <div class="question">
+                <label for="tv_sleep_reason">In what way does TV viewing affect your sleep patterns?</label>
+                <textarea id="tv_sleep_reason" name="tv_sleep_reason" rows="4"></textarea>
+            </div>
+
+            <div class="question">
+                <label for="tv_feelings">After watching TV for a long time (2+ hours), how do you usually feel?</label>
+                <textarea id="tv_feelings" name="tv_feelings" rows="4"></textarea>
+            </div>
+
+            <fieldset>
+                <legend>How often is the TV on during social gatherings in your home?</legend>
+                <label><input type="radio" name="tv_social_presence" value="Never"> Never</label>
+                <label><input type="radio" name="tv_social_presence" value="Rarely"> Rarely</label>
+                <label><input type="radio" name="tv_social_presence" value="Sometimes"> Sometimes</label>
+                <label><input type="radio" name="tv_social_presence" value="Often"> Often</label>
+                <label><input type="radio" name="tv_social_presence" value="Always"> Always</label>
+            </fieldset>
+
+        </div>
+
+        <div class="survey-page" id="page-4">
+            <h2>Section 4: Computer Use</h2>
+
+
+            <div class="question">
+                <label for="weekday_computer_input">How many hours do you use a computer (non-phone) during a typical
+                    weekday?</label>
+                <input type="hidden" id="weekday_computer_input" name="weekday_computer_hours">
+                <div id="weekday-computer-hours" class="number-board"></div>
+            </div>
+
+            <div class="question">
+                <label for="weekend_computer_input">How many hours do you use a computer (non-phone) during a typical
+                    weekend day?</label>
+                <input type="hidden" id="weekend_computer_input" name="weekend_computer_hours">
+                <div id="weekend-computer-hours" class="number-board"></div>
+            </div>
+
+
+            <fieldset>
+                <legend>What are your main reasons for using a computer?</legend>
+                <label><input type="checkbox" name="computer_reasons" value="Work"> Work</label>
+                <label><input type="checkbox" name="computer_reasons" value="Studying"> Studying</label>
+                <label><input type="checkbox" name="computer_reasons" value="Gaming"> Gaming</label>
+                <label><input type="checkbox" name="computer_reasons" value="Browsing / YouTube"> Browsing /
+                    YouTube</label>
+                <label><input type="checkbox" name="computer_reasons" value="Creative tasks"> Creative tasks (e.g.,
+                    design, writing)</label>
+                <label>Other (please specify): <input type="text" name="computer_reasons_other"></label>
+            </fieldset>
+
+            <fieldset>
+                <legend>When during the day do you mostly use a computer? (Select up to two)</legend>
+                <label><input type="checkbox" name="computer_times" value="Morning (06–10)"> Morning (06–10)</label>
+                <label><input type="checkbox" name="computer_times" value="Midday (10–14)"> Midday (10–14)</label>
+                <label><input type="checkbox" name="computer_times" value="Afternoon (14–18)"> Afternoon
+                    (14–18)</label>
+                <label><input type="checkbox" name="computer_times" value="Evening (18–22)"> Evening (18–22)</label>
+                <label><input type="checkbox" name="computer_times" value="Late night (22–02)"> Late night
+                    (22–02)</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>How does computer use affect your work / school productivity?</legend>
+                <label><input type="radio" name="computer_productivity_effect" value="Strongly reduces productivity">
+                    Strongly reduces productivity</label>
+                <label><input type="radio" name="computer_productivity_effect" value="Somewhat reduces productivity">
+                    Somewhat reduces productivity</label>
+                <label><input type="radio" name="computer_productivity_effect" value="No effect"> No effect</label>
+                <label><input type="radio" name="computer_productivity_effect" value="Somewhat improves productivity">
+                    Somewhat improves productivity</label>
+                <label><input type="radio" name="computer_productivity_effect" value="Strongly improves productivity">
+                    Strongly improves productivity</label>
+            </fieldset>
+
+            <div class="question">
+                <label for="computer_productivity_reason">
+                    Why do you think computer use affects your productivity this way?
+                </label>
+                <textarea id="computer_productivity_reason" name="computer_productivity_reason" rows="4"></textarea>
+            </div>
+
+            <fieldset>
+                <legend>Have you experienced any of the following physical symptoms from computer use?</legend>
+                <label><input type="checkbox" name="computer_symptoms" value="Back pain"> Back pain</label>
+                <label><input type="checkbox" name="computer_symptoms" value="Neck pain"> Neck pain</label>
+                <label><input type="checkbox" name="computer_symptoms" value="Hand/wrist discomfort"> Hand/wrist
+                    discomfort</label>
+                <label><input type="checkbox" name="computer_symptoms" value="Headaches"> Headaches</label>
+                <label><input type="checkbox" name="computer_symptoms" value="None of the above"> None of the
+                    above</label>
+            </fieldset>
+
+            <div class="question">
+                <label for="computer_time_control">
+                    What steps, if any, have you taken to reduce or control your computer time?
+                </label>
+                <textarea id="computer_time_control" name="computer_time_control" rows="4"></textarea>
+            </div>
+        </div>
+
+        <div class="survey-page" id="page-5">
+            <h2>Section 5: Survey Experience & Feedback</h2>
+
+            <div class="question">
+                <label for="survey_engagement_input">How engaged did you feel during the survey?</label>
+                <input type="hidden" id="survey_engagement_input" name="survey_engagement">
+                <div id="survey-engagement" class="number-board"></div>
+            </div>
+
+            <fieldset>
+                <legend>Did you find the questions well-worded and easy to understand?</legend>
+                <label><input type="radio" name="survey_clarity" value="Yes"> Yes</label>
+                <label><input type="radio" name="survey_clarity" value="No"> No</label>
+                <label><input type="radio" name="survey_clarity" value="Partially"> Partially</label>
+            </fieldset>
+
+            <div class="question">
+                <label for="survey_clarity_feedback">
+                    If you answered <strong>'No'</strong> or <strong>'Partially'</strong>, please explain why:
+                </label>
+                <textarea id="survey_clarity_feedback" name="survey_clarity_feedback" rows="3"></textarea>
+            </div>
+
+            <fieldset>
+                <legend>Were there any questions you found difficult or unclear?</legend>
+                <label><input type="radio" name="question_difficulty" value="No"> No</label>
+                <label><input type="radio" name="question_difficulty" value="Yes"> Yes</label>
+            </fieldset>
+
+            <div class="question">
+                <label for="difficult_questions">
+                    If <strong>yes</strong>, which ones?
+                </label>
+                <textarea id="difficult_questions" name="difficult_questions" rows="2"></textarea>
+            </div>
+
+
+            <div class="question">
+                <label for="survey_fun_input">How fun or interesting did you find answering the survey?</label>
+                <input type="hidden" id="survey_fun_input" name="survey_fun">
+                <div id="survey-fun" class="number-board"></div>
+            </div>
+
+            <fieldset>
+                <legend>To what extent do your answers reflect your actual habits and experiences?</legend>
+                <label><input type="radio" name="response_accuracy" value="Not at all"> Not at all</label>
+                <label><input type="radio" name="response_accuracy" value="To a small extent"> To a small
+                    extent</label>
+                <label><input type="radio" name="response_accuracy" value="To a moderate extent"> To a moderate
+                    extent</label>
+                <label><input type="radio" name="response_accuracy" value="To a large extent"> To a large
+                    extent</label>
+                <label><input type="radio" name="response_accuracy" value="Very much"> Very much</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>How easy or difficult was it to navigate through the survey?</legend>
+                <label><input type="radio" name="survey_navigation" value="Very difficult"> Very difficult</label>
+                <label><input type="radio" name="survey_navigation" value="Somewhat difficult"> Somewhat
+                    difficult</label>
+                <label><input type="radio" name="survey_navigation" value="Neutral"> Neutral</label>
+                <label><input type="radio" name="survey_navigation" value="Somewhat easy"> Somewhat easy</label>
+                <label><input type="radio" name="survey_navigation" value="Very easy"> Very easy</label>
+            </fieldset>
+
+            <fieldset>
+                <legend>Was there anything that made you feel unsure or hesitant when answering?</legend>
+                <label><input type="radio" name="survey_hesitation" value="No"> No</label>
+                <label><input type="radio" name="survey_hesitation" value="Yes"> Yes</label>
+            </fieldset>
+
+            <div class="question">
+                <label for="survey_hesitation_reason">
+                    If <strong>yes</strong>, what made you feel unsure?
+                </label>
+                <textarea id="survey_hesitation_reason" name="survey_hesitation_reason" rows="2"></textarea>
+            </div>
+
+            <div class="question">
+                <label for="survey_improvements">
+                    If you could improve the survey, what would you change?
+                </label>
+                <textarea id="survey_improvements" name="survey_improvements" rows="3"></textarea>
+            </div>
+
+
+        </div>
+        <div class="navigation">
+            <button id="prevBtn" onclick="prevPage()">Previous</button>
+            <button id="nextBtn" onclick="nextPage()">Next</button>
+        </div>
+    </div>
 <script>
 alert("✅ SCRIPT IS RUNNING");
 
