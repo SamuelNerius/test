@@ -1,0 +1,162 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Fixed Survey Test</title>
+  <style>
+    .survey-page { display: none; }
+    .survey-page.active { display: block; }
+  </style>
+</head>
+<body>
+
+<div class="survey-page active">
+  <h2>Page 1: Age & Gender</h2>
+  <label><input type="radio" name="age" value="20 - 29" required> 20 - 29</label><br>
+  <label><input type="radio" name="age" value="30 - 39"> 30 - 39</label><br>
+  <label><input type="radio" name="gender" value="Male" required> Male</label><br>
+  <label><input type="radio" name="gender" value="Female"> Female</label><br>
+</div>
+
+<div class="survey-page">
+  <h2>Page 2</h2>
+  <textarea name="example" placeholder="Write something..."></textarea>
+</div>
+
+<div class="survey-page">
+  <h2>Page 3</h2>
+  <input id="survey_engagement_input" value="7">
+  <input type="radio" name="survey_clarity" value="Yes" checked>
+  <input id="survey_clarity_feedback" value="It's fine.">
+  <input type="radio" name="question_difficulty" value="No" checked>
+  <textarea id="difficult_questions"></textarea>
+  <input id="survey_fun_input" value="8">
+  <input type="radio" name="response_accuracy" value="Good" checked>
+  <input type="radio" name="survey_navigation" value="Easy" checked>
+  <input type="radio" name="survey_hesitation" value="No" checked>
+  <textarea id="survey_hesitation_reason"></textarea>
+  <textarea id="survey_improvements"></textarea>
+</div>
+
+<div class="navigation">
+  <button id="prevBtn" onclick="prevPage()">Previous</button>
+  <button id="nextBtn" onclick="nextPage()">Next</button>
+</div>
+
+<script>
+alert("✅ SCRIPT IS RUNNING");
+
+let currentPage = 1;
+const totalPages = 3;
+let userId = 'user-' + Date.now() + '-' + Math.floor(Math.random() * 1000);
+
+function showPage(pageNum) {
+  document.querySelectorAll('.survey-page').forEach((page, index) => {
+    page.classList.remove('active');
+    if (index === pageNum - 1) {
+      page.classList.add('active');
+    }
+  });
+
+  document.getElementById('prevBtn').style.display = pageNum === 1 ? 'none' : 'inline-block';
+  document.getElementById('nextBtn').textContent = pageNum === totalPages ? 'Submit' : 'Next';
+}
+
+function prevPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    showPage(currentPage);
+  }
+}
+
+function nextPage() {
+  if (currentPage < totalPages) {
+    if (!isPageValid(currentPage)) return;
+    sendSurveyData(false, currentPage);
+    currentPage++;
+    showPage(currentPage);
+  } else {
+    sendSurveyData(true, "completed");
+    alert("Survey submitted!");
+  }
+}
+
+function isPageValid(pageNum) {
+  if (pageNum === 1) {
+    const ageSelected = document.querySelector('input[name="age"]:checked');
+    const genderSelected = document.querySelector('input[name="gender"]:checked');
+    if (!ageSelected || !genderSelected) {
+      alert("Please answer both the age and gender questions.");
+      return false;
+    }
+  }
+  return true;
+}
+
+function collectSectionFiveAnswers() {
+  const answers = {
+    survey_engagement: document.getElementById("survey_engagement_input")?.value || '',
+    survey_clarity: document.querySelector('input[name="survey_clarity"]:checked')?.value || '',
+    survey_clarity_feedback: document.getElementById("survey_clarity_feedback")?.value.trim() || '',
+    question_difficulty: document.querySelector('input[name="question_difficulty"]:checked')?.value || '',
+    difficult_questions: document.getElementById("difficult_questions")?.value.trim() || '',
+    survey_fun: document.getElementById("survey_fun_input")?.value || '',
+    response_accuracy: document.querySelector('input[name="response_accuracy"]:checked')?.value || '',
+    survey_navigation: document.querySelector('input[name="survey_navigation"]:checked')?.value || '',
+    survey_hesitation: document.querySelector('input[name="survey_hesitation"]:checked')?.value || '',
+    survey_hesitation_reason: document.getElementById("survey_hesitation_reason")?.value.trim() || '',
+    survey_improvements: document.getElementById("survey_improvements")?.value.trim() || ''
+  };
+  return answers;
+}
+
+function sendSurveyData(completed, dropOffPoint) {
+  let wordCounts = {};
+  document.querySelectorAll('textarea').forEach(textarea => {
+    wordCounts[textarea.name] = textarea.value.trim().split(/\s+/).filter(Boolean).length;
+  });
+
+  const age = document.querySelector('input[name="age"]:checked')?.value || '';
+  const gender = document.querySelector('input[name="gender"]:checked')?.value || '';
+
+  let allAnswered = true;
+  document.querySelectorAll('input[required]').forEach(input => {
+    if (!input.checked) allAnswered = false;
+  });
+
+  const sectionFiveAnswers = collectSectionFiveAnswers();
+
+  const payload = {
+    userId,
+    age,
+    gender,
+    completed,
+    dropOffPoint,
+    allQuestionsAnswered: allAnswered,
+    wordCounts,
+    sectionFiveAnswers
+  };
+
+  console.log("📦 Payload being sent to Google Sheets:", payload);
+
+  fetch('https://script.google.com/macros/s/AKfycbyJw0kFH_aU8py1TPQGkuU8sEhLHss1SKIJI0DeFCArLA4F4QpxndI6ML7KoD69tZRL/exec', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  })
+  .then(response => response.text())
+  .then(data => {
+    console.log("✅ Response from Google Sheets:", data);
+  })
+  .catch(error => {
+    console.error("❌ Error sending data:", error);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  showPage(currentPage);
+});
+</script>
+</body>
+</html>
